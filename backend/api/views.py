@@ -1,5 +1,37 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework import viewsets, permissions
+from .serializers import *
+from .models import *
+from rest_framework.response import Response
 
-def home(request):
-    return HttpResponse("This is the home page")
+class CountryViewset(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+    def list(self, request):
+        queryset = Country.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+
+class LeagueViewset(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+    queryset = Country.objects.all()
+    serializer_class = LeagueSerializer
+
+    def list(self, request):
+        queryset = League.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+class CharacteristicViewset(viewsets.ViewSet):
+    permission_classes = [permissions.AllowAny]
+    queryset = Country.objects.all()
+    serializer_class = CharacteristicSerializer
+
+    def list(self, request):
+        queryset = Characteristic.objects.all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
