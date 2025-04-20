@@ -3,12 +3,22 @@ import AxiosInstance from "./Axios.jsx";
 
 const Create = () => {
     const [country, setCountry] = useState([])
+    const [league, setLeague] = useState([])
+    const [characteristic, setCharacteristic] = useState([])
 
-    console.log(country)
+    console.log("Country", country)
+    console.log("League", league)
+    console.log("Characteristic", characteristic)
 
     const GetData = () => {
         AxiosInstance.get(`country/`).then((res) => {
             setCountry(res.data)
+        })
+        AxiosInstance.get(`league/`).then((res) => {
+            setLeague(res.data)
+        })
+        AxiosInstance.get(`characteristic/`).then((res) => {
+            setCharacteristic(res.data)
         })
     }
     useEffect(() => {
