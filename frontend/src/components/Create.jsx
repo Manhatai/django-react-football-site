@@ -1,5 +1,10 @@
 import {React, useState, useEffect} from 'react'
 import AxiosInstance from "./Axios.jsx";
+import {Box, Typography} from '@mui/material'
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import TextForm from './forms/TextForm.jsx'
+import SelectForm from "./forms/SelectForm.jsx";
+
 
 const Create = () => {
     const [country, setCountry] = useState([])
@@ -26,7 +31,43 @@ const Create = () => {
     },[])
     return(
         <div>
-            This is the create page
+            <Box className={"TopBar"}>
+                <AddBoxIcon/>
+                <Typography sx={{marginLeft: '15px', fontWeight: 'bold'}} variant='subtitle2'>
+                    Create a new club!
+                </Typography>
+            </Box>
+
+            <Box className={"FormBox"}>
+                <Box className={"FormArea"}>
+                    <TextForm
+                        label = {"Club name"}
+                    />
+                </Box>
+                <Box className={"FormArea"}>
+                    <TextForm
+                        label = {"City"}
+                    />
+                </Box>
+                <Box className={"FormArea"}>
+                    <SelectForm
+                    label = {"League"}
+                    options = {league}
+                    />
+                </Box>
+                <Box className={"FormArea"}>
+                    <SelectForm
+                    label = {"Country"}
+                    options = {country}
+                    />
+                </Box>
+                <Box className={"FormArea"}>
+                    <TextForm
+                        label = {"City"}
+                    />
+                </Box>
+
+            </Box>
         </div>
     )
 }
