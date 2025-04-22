@@ -19,19 +19,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight: personName.includes(name)
@@ -40,7 +27,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelectChip() {
+export default function MultiSelectForm({label, options}) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
@@ -56,31 +43,33 @@ export default function MultipleSelectChip() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+      <FormControl sx={{width: '100%'}}>
+        <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label={label} />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip
+                    key={value}
+                    label={options.find(option => option.id===value)?.name} />
               ))}
             </Box>
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {options.map((option) => (
             <MenuItem
-              key={name}
-              value={name}
+              key={option.id}
+              value={option.id}
               style={getStyles(name, personName, theme)}
             >
-              {name}
+              {option.name}
             </MenuItem>
           ))}
         </Select>
