@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from rest_framework import viewsets, permissions
 from .serializers import *
 from .models import *
 from rest_framework.response import Response
+
 
 class CountryViewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
@@ -18,7 +18,7 @@ class CountryViewset(viewsets.ViewSet):
 
 class LeagueViewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = Country.objects.all()
+    queryset = League.objects.all()
     serializer_class = LeagueSerializer
 
     def list(self, request):
@@ -26,15 +26,17 @@ class LeagueViewset(viewsets.ViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+
 class CharacteristicViewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = Country.objects.all()
+    queryset = Characteristic.objects.all()
     serializer_class = CharacteristicSerializer
 
     def list(self, request):
         queryset = Characteristic.objects.all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
 
 class FootballClubViewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
@@ -67,3 +69,8 @@ class FootballClubViewset(viewsets.ViewSet):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
+
+    def destroy(self, request, pk=None):
+        queryset = self.queryset.get(pk=pk)
+        queryset.delete()
+        return Response(status=204)

@@ -7,6 +7,7 @@ import {MaterialReactTable} from "material-react-table";
 import AxiosInstance from './Axios.jsx'
 import Chip from "@mui/material/Chip";
 import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Home = () => {
 
@@ -77,7 +78,12 @@ const Home = () => {
                         <IconButton color="primary" component={Link} to={`edit/${row.original.id}`}>
                             <EditIcon/>
                         </IconButton>
+
+                        <IconButton color="primary" component={Link} to={`delete/${row.original.id}`}>
+                            <DeleteIcon/>
+                        </IconButton>
                     </Box>
+
                 )}
             />
         </div>
